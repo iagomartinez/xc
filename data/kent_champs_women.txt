@@ -46,7 +46,7 @@ FinPos AthNo Athlete Name Club Time FinPos AthNo Athlete Name Club Time
 43 574 Parris Williams KENT 41:32 103 486 Gill Stewart (W45) BEX 51:14
 44 473 Kate Marchant (W50) BEC 41:36 104 617 Ana-Maria Green (W55) TWH 51:29
 45 588 Suzy Claridge (W45) SEV 41:38 105 582 Catherine Rodwell M&M 52:07
-46 532 Emily Chambers FOLK 41:44 106 563 Ronnie Haydon-Jones (W55)KENT 52:18
+46 532 Emily Chambers FOLK 41:44 106 563 Ronnie Haydon-Jones (W55) KENT 52:18
 47 610 Stephanie Puxty (U20W) TON 41:53 107 586 Tracey Dennis (W55) MOTE 53:12
 48 553 Megan Aitchison KENT 41:56 108 462 Jaclyn Kay (W35) A&D 54:12
 49 508 Elizabeth Brookes (W40) CPA 41:59 109 481 Christina Fleetwood (W45) BEX 54:46

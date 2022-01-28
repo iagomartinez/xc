@@ -21,11 +21,17 @@ class TestKentXc(unittest.TestCase):
         results = kcaa.extract_file(file)
         self.assertEqual(203, len(results))
 
-    def test_parse_athletes(self):
+    def test_parse_men(self):
         file = ROOT / 'data/kent_champs_men.txt'
         results = kcaa.extract_file(file)
         parsed = kcaa.parse(results)
         self.assertEqual(203, len(parsed))
+
+    def test_parse_women(self):
+        file = ROOT / 'data/kent_champs_women.txt'
+        results = kcaa.extract_file(file)
+        parsed = kcaa.parse(results)
+        self.assertEqual(114, len(parsed))
 
     def test_ResultParser(self):
         rp = kcaa.ResultParser()

@@ -23,7 +23,7 @@ class ResultParser():
     def parse(self, result):
         m = self.resultx.match(result)
         if not m:
-            raise(f'failed to parse row {result}')
+            raise Exception(f'failed to parse row {result}')
         return m.groupdict()
 
 def parse(results):
