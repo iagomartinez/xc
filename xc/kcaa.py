@@ -1,6 +1,4 @@
-from mimetypes import init
 import re
-from types import new_class
 import pandas as pd
 
 def extract_result(line):
