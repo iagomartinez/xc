@@ -13,7 +13,7 @@ def extract_file(file):
     return results
 
 class ResultParser():
-    RESULT_REGEX = r'(?P<position>\d{1,3})\s(?:\d{1,3})\s(?P<name>.*?)\s(?P<club>[\w&]*)\s(?P<time>\d{1,2}\:\d{1,2})'
+    RESULT_REGEX = r'(?P<position>\d{1,3})\s(?:\d{1,3})\s(?P<name>.*?)\s(?:\((?P<category>\w*)\)\s)?(?P<club>[\w&]*)\s(?P<time>\d{1,2}\:\d{1,2})'
 
     def __init__(self):
         self.resultx = re.compile(self.RESULT_REGEX)

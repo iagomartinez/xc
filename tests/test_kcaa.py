@@ -35,7 +35,9 @@ class TestKentXc(unittest.TestCase):
 
     def test_ResultParser(self):
         rp = kcaa.ResultParser()
-        testdata = [('16 812 Christopher McGurk KENT 45:10', {'position':'16', 'name': 'Christopher McGurk', 'club': 'KENT', 'time': '45:10'})]
+        testdata = [('16 812 Christopher McGurk KENT 45:10', {'position':'16', 'name': 'Christopher McGurk', 'club': 'KENT','category':None, 'time': '45:10'}),
+            ('82 729 Johnnie Arnould (M40) CPA 51:58', {'position':'82', 'name': 'Johnnie Arnould', 'club': 'CPA', 'category':'M40','time': '51:58'}),
+            ('10 489 Carole Coulon (W45) B&B 36:37', {'position':'10', 'name':'Carole Coulon', 'category':'W45', 'club':'B&B', 'time':'36:37'})]
         for input, expected in testdata:
             with self.subTest(f'testing {input}->{expected}'):
                 parsed = rp.parse(input)
