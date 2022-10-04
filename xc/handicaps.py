@@ -10,7 +10,12 @@ ROOT = Path(__file__).parent.parent
 
 def scrape(name):
 
-    [fn,ln] = name.split()
+    name_parts = name.split()
+    if (len(name_parts) > 2):
+        fn = name_parts[0]
+        ln = ' '.join(name_parts[1:])
+    else:
+        [fn, ln] = name_parts
     print([fn,ln])
     html_text = req.get(f'https://www.thepowerof10.info/athletes/athleteslookup.aspx?surname={ln}&firstname={fn}&club=Kent+AC').text
     soup = BeautifulSoup(html_text, 'html.parser')
@@ -38,7 +43,7 @@ def get_handicaps(inputfile, outputfile):
     with open(inputfile, 'r', newline='', encoding='utf-8') as f:
         with open(outputfile, 'w', newline='', encoding='utf-8') as outfile:
             writer=csv.writer(outfile)
-            writer.writerow(['last_name', 'name', 'handicap'])
+            writer.writerow(['last_name', 'name', 'category', 'handicap'])
             for line in f:
                 data = scrape(line.strip())
                 writer.writerow(data)    
