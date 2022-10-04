@@ -17,11 +17,12 @@ def scrape(name):
     table = soup.find('table', attrs={'id':'cphBody_dgAthletes'})
     if table is None:
         print(f'Athlete {fn} {ln} not found')
-        return [ln,fn,None]
+        return [ln,fn,None,None]
 
     print(f'Athlete {fn} {ln} found')
     rows = list(table.find_all('tr'))
     cols = rows[1].find_all('td')
+    category = cols[4].text.strip()
     runbritain_url = cols[8].a['href']
 
     print(runbritain_url)
@@ -31,7 +32,7 @@ def scrape(name):
     
     print(fn, ln, handicap.text.strip())
     sleep(1)
-    return [ln,fn,handicap.text.strip()]
+    return [ln,fn,category,handicap.text.strip()]
 
 def get_handicaps(inputfile, outputfile):
     with open(inputfile, 'r', newline='', encoding='utf-8') as f:
@@ -43,7 +44,7 @@ def get_handicaps(inputfile, outputfile):
                 writer.writerow(data)    
 
 def main():
-    #get_handicaps(ROOT / 'data/men_names.txt', ROOT / 'data/men_handicaps.csv')
+    get_handicaps(ROOT / 'data/men_names.txt', ROOT / 'data/men_handicaps.csv')
     get_handicaps(ROOT / 'data/women_names.txt', ROOT / 'data/women_handicaps.csv')
 
 if __name__ == '__main__':
