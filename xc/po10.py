@@ -29,95 +29,55 @@ def scrape(pages, table_header, table_id, row_fn, expected_count):
                 break
             data.append(row_fn(row))
 
-    assert len(data) == expected_count, f'{len(data)}'
     df = pd.DataFrame.from_dict(data)
     df = df.loc[(df.club == 'Kent') | (df.club == 'Kent AC') | (df.club.str.startswith('Kent'))]
+    assert len(df.index) == expected_count, f'{len(df.index)}'
+
     df['position'] = df['position'].astype(int)
     df.sort_values(by='position', inplace=True)
+
     df['rank'] = df['position'].rank(method='first').astype(int)
-    df = df[['rank','name', 'position', 'time', 'category']]
-    #display(df.index)
+    df = df[['rank','position', 'time', 'category', 'name']]
     return df
 
 def main():
 
-    #with open(file, 'r', newline='', encoding='utf-8') as f:
-    #    html_text = f.read()
+    # SOTCCA 5M 2023
+    # row_fn = lambda row: {'position':row[0].text, 'time':row[3].text, 'name':row[4].text, 'category':row[5].text,'mw':row[6].text, 'club':row[8].text}
+    # df_sotcca = scrape(['https://www.thepowerof10.info/results/results.aspx?meetingid=502627'], '5MXC', 'cphBody_dgP', row_fn,38)
+    # df_m = df_sotcca.loc[df_sotcca.mw == "M"].copy()
+    # df_m['rank'] = df_m['position'].rank(method='first').astype(int)
+    # df_m.to_csv(ROOT / 'data/sotcca_5M_kent_men.csv', index=False)
 
-    # pages =
-    #     table = soup.find('table', attrs={'id':'cphBody_dgP'})
-    #     elem = soup.find(text='8KXC SM')
+    # df_w = df_sotcca.loc[df_sotcca.mw == "W"].copy()
+    # df_w['rank'] = df_w['position'].rank(method='first').astype(int)
+    # df_w.to_csv(ROOT / 'data/sotcca_5M_kent_women.csv', index=False)
 
-    
-    row_fn = lambda row: {'position':row[0].text, 'time':row[2].text, 'name':row[3].text, 'category':row[4].text, 'club':row[8].text}
+    # SOTCCA 7.5M 2023
+    # row_fn = lambda row: {'position':row[0].text, 'time':row[3].text, 'name':row[4].text, 'category':row[5].text,'mw':row[6].text, 'club':row[8].text}
+    # df_sotcca = scrape(['https://www.thepowerof10.info/results/results.aspx?meetingid=506441'], '7.5MXC', 'cphBody_dgP', row_fn,7)
+    # df_m = df_sotcca.loc[df_sotcca.mw == "M"].copy()
+    # df_m['rank'] = df_m['position'].rank(method='first').astype(int)
+    # df_m.to_csv(ROOT / 'data/sotcca_champs_kent_men.csv', index=False)
 
-    df_m = scrape(['https://www.thepowerof10.info/results/results.aspx?meetingid=443285', 'https://www.thepowerof10.info/results/results.aspx?meetingid=443285&pagenum=2'], '8KXC SM', 'cphBody_dgP', row_fn,221)
-    df_m.to_csv(ROOT / 'data/sl3_kent_men.csv', index=False)
+    # Kent Champs 2023
+    # row_fn = lambda row: {'position':row[0].text, 'time':row[2].text, 'name':row[3].text, 'category':row[4].text,'mw':row[5].text, 'club':row[8].text}
+    # df_kc_m = scrape(['https://www.thepowerof10.info/results/results.aspx?meetingid=510884&pagenum=2#12KXC','https://www.thepowerof10.info/results/results.aspx?meetingid=510884&pagenum=3'], '12KXC SM', 'cphBody_dgP', row_fn,16)
+    # df_kc_m.to_csv(ROOT / 'data/kent_champs_men.csv', index=False)
 
-    df_w = scrape(['https://www.thepowerof10.info/results/results.aspx?meetingid=444365&pagenum=1','https://www.thepowerof10.info/results/results.aspx?meetingid=444365&pagenum=2'],'8KXC SW D1', 'cphBody_dgP', row_fn,221)
-    df_w.to_csv(ROOT / 'data/sl3_kent_women.csv', index=False)
+    #Women
+    # row_fn = lambda row: {'position':row[0].text, 'time':row[2].text, 'name':row[3].text, 'category':row[4].text,'mw':row[5].text, 'club':row[8].text}
+    # df_kc_m = scrape(['https://www.thepowerof10.info/results/results.aspx?meetingid=510884&pagenum=1#8.35KXC','https://www.thepowerof10.info/results/results.aspx?meetingid=510884&pagenum=2'], '8.35KXC SW', 'cphBody_dgP', row_fn,13)
+    # df_kc_m.to_csv(ROOT / 'data/kent_champs_women.csv', index=False)
 
+    # SL 3 2023
+    #row_fn = lambda row: {'position':row[0].text, 'time':row[2].text, 'name':row[3].text, 'category':row[4].text,'mw':row[5].text, 'club':row[8].text}
 
-    # pages = ['https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=10#8KXC',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=11',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=12',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=13',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=14']
+    # df_m = scrape(['https://www.thepowerof10.info/results/results.aspx?meetingid=443285', 'https://www.thepowerof10.info/results/results.aspx?meetingid=443285&pagenum=2'], '8KXC SM', 'cphBody_dgP', row_fn,221)
+    # df_m.to_csv(ROOT / 'data/sl3_kent_men.csv', index=False)
 
-    # row_fn = lambda row: {'position':row[0].text, 'time':row[1].text, 'name':row[2].text, 'category':row[3].text, 'club':row[7].text}
-
-    # df_w = scrape(pages,'8KXC SW', 'cphBody_dgP', row_fn, 1011)
-    # df_w.to_csv(ROOT / 'data/national_kent_women.csv', index=False)
-
-
-    # pages = ['https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=15#12KXC',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=16',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=17',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=18',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=19',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=20',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=21',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=22',
-    #     'https://www.thepowerof10.info/results/results.aspx?meetingid=450428&top=6000&pagenum=23']
-
-    # row_fn = lambda row: {'position':row[0].text, 'time':row[1].text, 'name':row[2].text, 'category':row[3].text, 'club':row[7].text}
-
-    # df = scrape(pages,'12KXC SM', 'cphBody_dgP', row_fn, 2089)
-    # df.to_csv(ROOT / 'data/national_kent_men.csv', index=False)
-
-    # pages = ['https://www.thepowerof10.info/results/results.aspx?meetingid=445667&top=5000&pagenum=5#8KXC',
-    # 'https://www.thepowerof10.info/results/results.aspx?meetingid=445667&top=5000&pagenum=6#8KXC',
-    # 'https://www.thepowerof10.info/results/results.aspx?meetingid=445667&top=5000&pagenum=7'
-    #     ]
-
-    # row_fn = lambda row: {'position':row[0].text, 'time':row[1].text, 'name':row[2].text, 'category':row[3].text, 'club':row[7].text}
-
-    # df = scrape(pages,'8KXC SW', 'cphBody_dgP', row_fn, 366)
-    # df.to_csv(ROOT / 'data/seaa_kent_women.csv', index=False)
-
-    # pages = ['https://www.thepowerof10.info/results/results.aspx?meetingid=445667&top=5000&pagenum=7',
-    # 'https://www.thepowerof10.info/results/results.aspx?meetingid=445667&top=5000&pagenum=8',
-    # 'https://www.thepowerof10.info/results/results.aspx?meetingid=445667&top=5000&pagenum=9'
-    #     ]
-
-    # row_fn = lambda row: {'position':row[0].text, 'time':row[1].text, 'name':row[2].text, 'category':row[3].text, 'club':row[7].text}
-
-    # df = scrape(pages,'15KXC SM', 'cphBody_dgP', row_fn, 685)
-    # df.to_csv(ROOT / 'data/seaa_kent_men.csv', index=False)
-
-    # pages = ['https://www.thepowerof10.info/results/results.aspx?meetingid=451661&pagenum=1#8KXC']
-
-    # row_fn = lambda row: {'position':row[0].text, 'time':row[2].text, 'name':row[3].text, 'category':row[4].text, 'club':row[8].text}
-
-    # df = scrape(pages,'8KXC SW D1', 'cphBody_dgP', row_fn, 120)
-    # df.to_csv(ROOT / 'data/sl4_kent_women.csv', index=False)    
-
-    # pages = ['https://www.thepowerof10.info/results/results.aspx?meetingid=451660&pagenum=1#8KXC']
-
-    # row_fn = lambda row: {'position':row[0].text, 'time':row[2].text, 'name':row[3].text, 'category':row[4].text, 'club':row[8].text}
-
-    # df = scrape(pages,'8KXC SM', 'cphBody_dgP', row_fn, 110)
-    # df.to_csv(ROOT / 'data/sl4_kent_men.csv', index=False)   
+    # df_w = scrape(['https://www.thepowerof10.info/results/results.aspx?meetingid=444365&pagenum=1','https://www.thepowerof10.info/results/results.aspx?meetingid=444365&pagenum=2'],'8KXC SW D1', 'cphBody_dgP', row_fn,221)
+    # df_w.to_csv(ROOT / 'data/sl3_kent_women.csv', index=False)
 
 if __name__ == '__main__':
     sys.exit(main())

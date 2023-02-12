@@ -49,8 +49,9 @@ def get_handicaps(inputfile, outputfile):
                 writer.writerow(data)    
 
 def main():
-    get_handicaps(ROOT / 'data/men_names.txt', ROOT / 'data/men_handicaps.csv')
-    get_handicaps(ROOT / 'data/women_names.txt', ROOT / 'data/women_handicaps.csv')
+    #get_handicaps(ROOT / 'data/men_names.txt', ROOT / 'data/men_handicaps.csv')
+    #get_handicaps(ROOT / 'data/women_names.txt', ROOT / 'data/women_handicaps.csv')
+    get_handicaps(ROOT / 'data/name_tests.txt', ROOT / 'data/women_handicaps.csv')
 
 if __name__ == '__main__':
     sys.exit(main())
